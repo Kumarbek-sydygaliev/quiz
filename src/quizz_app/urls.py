@@ -3,6 +3,7 @@ from .views import (
     index,
 )
 
+app_name = 'quizz_app'
 
 urlpatterns = [
     path('', index, name = 'index'),

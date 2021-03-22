@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<body>
+  {% if error_message %}
+  <div class="alert alert-danger text-center" role="alert">
+      {{ error_message }}
+  </div> 
+  {% elif success_message%}
+  <div class="alert alert-success text-center" role="alert">
+      {{ success_message }}
+  </div>
+  {% endif %}
+</body>
+
+{% endblock %}

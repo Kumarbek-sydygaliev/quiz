@@ -25,7 +25,21 @@ SECRET_KEY = 'sg#!oi*dcc_k&pyn#7t(32%4akw5t_!qfl16_(070+4pb!k9m3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
+
+
+DEFAULT_EMAIL_FROM = 'kajias1553@gmail.com'
+EMAIL_BCC = 'Qualle'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'kumarbeksydygaliev44@gmail.com'
+EMAIL_HOST_PASSWORD = 'qwerty4134125'
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+SERVER_EMAIL = 'kumarbeksydygaliev44@gmail.com'
 
 
 # Application definition
@@ -38,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'quizz_app',
+    'authe',
 ]
 
 MIDDLEWARE = [
@@ -76,14 +91,20 @@ WSGI_APPLICATION = 'main.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'quiz_db',
+        'USER': 'quiz_role',
+        'PASSWORD': '12345',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+    },
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
+
+
+AUTH_USER_MODEL = 'authe.Author'
 
 AUTH_PASSWORD_VALIDATORS = [
     {
