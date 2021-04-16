@@ -1,36 +1,50 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizes</title>
+  </head>
+
 <body>
-    <link 
-     rel="stylesheet"
-     href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"> 
-    <style> 
-        .i-am-centered { 
-            margin: auto; 
-            max-width: 1000px; 
-            padding-top: 5%;
-            width: 300px;
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <style>
+        .i-am-centered {
+            margin: auto;
+            max-width: 1000px;
+            max-height: 1000px;
+            padding-top: 1%;
+            width: 450px;
+        }
+        .h6 {
+            font-family: 'Vollkorn', serif;
         }
     </style>
 
-    <div class="i-am-centered" >
-        <div class="card" style="background-color:lightgray; align-items: center; width: 18rem; height: 18rem;">
-            <form method="POST"> {% csrf_token %} 
-                <div class="form-group"> 
-                    <label>Quiz title</label> 
-                    <h6>{{ form.title }}</h6>    
+    <div class="i-am-centered">
+        <div class="card" style="background-color: lightgray; align-items: center; width: 24rem; height: 18rem;">
+            <form method="GET">
+                <div class="form-group">
+                    <label>Title</label>
+                    <h6><input name="title" type="text" size="30" placeholder="Quiz title"></h6>
                 </div>
-                <div class="form-group"> 
-                    <label>Description</label> 
-                    <h6>{{ form.description }}</h6> 
+                <div class="form-group">
+                    <label>Description</label>
+                    <h6><input name="description" type="text" size="30" placeholder="Quiz description"></h6>
+                </div>
+                <div class="form-group">
+                    <label>Image</label>
+                    <h6><input name="url" type="text" size="30" placeholder="Image url"></h6>
                 </div>
                 <div class="text-center my-2 my-sm-0" style="align-items: center;">
                     <button type="submit" class="btn btn-primary">Create</button>
                 </div>
-            </form> 
+            </form>
         </div>
     </div>
+
 </body>
 
 {% endblock %}

@@ -1,12 +1,76 @@
 {% extends 'base.html' %}
 {% block content %}
 
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quizes</title>
+  <style>
+    .shadowtext {
+      text-shadow: 3px 1px 3px gray;
+      /* Параметры тени */
+    }
+
+    .hover1 {
+      border-style: none;
+      transition: 0.4s;
+      transform: scale(1, 1);
+      transition: 0.5s;
+      box-shadow: 0 4px 8px 0 rgb(36, 33, 33);
+    }
+
+    .hover1:hover {
+      border-style: none;
+      transition: 0.1s;
+      transform: scale(1.05, 1.05);
+      transition: 0.5s;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.8);
+    }
+  </style>
+</head>
+
 <body>
-    {% for quiz in quizes %}
-    <div class="card" style="background-color: lightgray; align-items: center; width: 18rem; height: 18rem;">
-        <label>{{ quiz.title }}</label> 
+  {% for couple in quizes %}
+  <div class="card-group">
+    {% for quiz in couple %}
+    <div class="card text-center align-items-center" style="height: 600px; border-style:none;
+    background: none;">
+      <div class="hover1" style="border-style:none; opacity: 0.8; width: 80%; margin-top: 30px; height: 531px;">
+        <img src="{{quiz.img_url}}" style="max-height: 512px; width: 100%;">
+
+        <div class="card-body" style="background-color:slategrey; height: 200px;">
+          <h5 class="card-title shadowtext">
+            {{ quiz.title }}</h5>
+          <p class="card-text shadowtext">{{ quiz.description }}</p>
+          {% if user.is_authenticated %}
+          <a href="http://127.0.0.1:8000/quiz_edit/{{ quiz.id }}">
+            <div class="box-3">
+              <div class="box-1">
+                <div class="btn btn-one">
+                  <span>EDIT QUIZ</span>
+                </div>
+              </div>
+            </div>
+          </a>
+          {% endif %}
+          <a href="http://127.0.0.1:8000/quiz_run/{{ quiz.id }}">
+            <div class="box-3">
+              <div class="box-1">
+                <div class="btn btn-one">
+                  <span type="button">TAKE THIS QUIZ</span>
+                </div>
+              </div>
+            </div>
+          </a>
+          <p class="card-text"><small class="text">Log in to edit quiz</small></p>
+        </div>
+      </div>
     </div>
     {% endfor %}
+  </div>
+  {% endfor %}
 </body>
 
 {% endblock %}

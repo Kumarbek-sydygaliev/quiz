@@ -1,14 +1,21 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quizes</title>
+</head>
+
 <body>
   {% if error_message %}
   <div class="alert alert-danger text-center" role="alert">
-      {{ error_message }}
-  </div> 
+    {{ error_message }}
+  </div>
   {% elif success_message%}
   <div class="alert alert-success text-center" role="alert">
-      {{ success_message }}
+    {{ success_message }}
   </div>
   {% endif %}
 </body>

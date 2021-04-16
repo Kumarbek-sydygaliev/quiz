@@ -1,5 +1,6 @@
 from django.shortcuts import render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, logout
+from django.contrib.auth import login as user_login
 
 from .models import Author, ConfirmCode
 from .forms import AuthorRegisterForm, LoginForm
@@ -23,19 +24,24 @@ def register(request):
             author = Author.objects.get(email=request.POST['email'])
             author.codes.all().delete()
             code = ConfirmCode.objects.create(author=author)
-            send_verified_link(f'Чтобы подтвердить почту, перейдите по ссылке http://127.0.0.1:8000/auth/confirm/{code.code}/', code.author.email)
-            return render(request, 'reply.html', context={'success_message':'Проверьте вашу почту'})
+            send_verified_link(
+                f'Чтобы подтвердить почту, перейдите по ссылке http://127.0.0.1:8000/auth/confirm/{code.code}/', code.author.email)
+            return render(request, 'reply.html', context={'success_message': 'Проверьте вашу почту'})
 
         # Successful registration
         if save_form.is_valid:
             author = Author.objects.create(
-                username = request.POST['username'],
-                password = request.POST['password'],
-                email = request.POST['email'],
-                )
+                username=request.POST['username'],
+                password=request.POST['password'],
+                email=request.POST['email'],
+            )
+            author.set_password(request.POST['password'])
+            author.save()
+
             code = ConfirmCode.objects.create(author=author)
-            send_verified_link(f'Чтобы подтвердить почту, перейдите по ссылке http://127.0.0.1:8000/auth/confirm/{code.code}', code.author.email)
-            return render(request, 'reply.html', context={'success_message':'Проверьте вашу почту'})
+            send_verified_link(
+                f'Чтобы подтвердить почту, перейдите по ссылке http://127.0.0.1:8000/auth/confirm/{code.code}', code.author.email)
+            return render(request, 'reply.html', context={'success_message': 'Проверьте вашу почту'})
     return render(request, 'register.html', {'form': form})
 
 
@@ -57,18 +63,23 @@ def confirm(request, code):
 def login(request):
     form = LoginForm()
     if request.method == 'POST':
-        user = authenticate(username=request.POST['username'], password=request.POST['password'])
+        user = authenticate(
+            username=request.POST['username'], password=request.POST['password'])
         if user:
             if user.is_active:
                 # Successful log in
-                login(request, user)
-                return render(request, 'reply.html', {'form':form, 'success_message': 'Вы вошли в аккаунт', 'success':True})
+                user_login(request, user)
+                return render(request, 'reply.html', {'form': form, 'success_message': 'Вы вошли в аккаунт', 'success': True, 'user': user})
 
             # Disabled account error
-            return render(request, 'reply.html', {'form':form, 'error_message': 'Аккаунт не активен', 'success':True})
+            return render(request, 'reply.html', {'form': form, 'error_message': 'Аккаунт не активен', 'success': True})
 
         # Invalid login error
-        return render(request, 'login.html', {'form':form, 'error_message': 'Такого пользователя не существует', 'success':False})
+        return render(request, 'login.html', {'form': form, 'error_message': 'Такого пользователя не существует', 'success': False})
 
     return render(request, 'login.html', {'form': form})
-    
+
+
+def logout_view(request):
+    logout(request)
+    return render(request, 'index.html')

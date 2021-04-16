@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<head>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <script src="http://code.highcharts.com/highcharts.js"></script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quizes</title>
+
+    <style>
+        /* fonts */
+
+        .h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        h7,
+        h8,
+        a,
+        div {
+            font-family: 'Vollkorn', serif;
+        }
+
+        /* button styles */
+
+        .button5 {
+            display: block;
+            background-color: var(--light);
+            width: 200px;
+            height: 50px;
+            border-radius: 40px;
+            font-size: 6mm;
+            transition: 0.1s;
+            transform: scale(1);
+        }
+
+        .button5:hover {
+            display: block;
+            background-color: var(--light);
+            width: 200px;
+            height: 50px;
+            border-radius: 40px;
+            font-size: 6mm;
+            transition: 0.3s;
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card text-center" style="width: 100%; height: 18rem; background-color: rgb(41, 39, 39)">
+        <div class="card-body align-self-center">
+            <form method="GET">
+                <label style="color: white">QUIZ DESCRIPTION</label>
+                <br>
+                <textarea></textarea>
+                <br>
+                <a href="#">
+                    <div class="btn button5">
+                        <span>SAVE QUESTION</span>
+                    </div>
+                </a>
+            </form>
+        </div>
+    </div>
+</body>
+
+{% endblock %}
